@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import SinglePostLink from '../../components/posts/SinglePostLink';
 
 export default function PostsPage() {
   const [postsArr, setPostsArr] = useState([]);
@@ -9,7 +9,6 @@ export default function PostsPage() {
   const url = 'http://localhost:5000/posts';
 
   useEffect(() => {
-    //parsisiusti
     axios
       .get(url)
       .then((resp) => {
@@ -19,7 +18,6 @@ export default function PostsPage() {
       .catch((error) => {
         console.log('error ===', error);
       });
-    //irasyti i postsArr
   }, []);
 
   return (
@@ -31,10 +29,7 @@ export default function PostsPage() {
       </p>
       <ul>
         {postsArr.map((pObj) => (
-          <li key={pObj.id}>
-            {/* vietoje 5 paduoti posto id */}
-            <Link to={'/posts/5'}>{pObj.title}</Link>
-          </li>
+          <SinglePostLink key={pObj.id} id={pObj.id} title={pObj.title} />
         ))}
       </ul>
     </div>

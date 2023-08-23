@@ -20,7 +20,7 @@ export default function App() {
         <Route path='/' element={<HomePage />} />
         {isLoggedIn && <Route path='/posts' element={<PostsPage />} />}
         {/* vietoje 5 turi buti dinaminis posto id elementas */}
-        <Route path='/posts/5' element={<SinglePostPage />} />
+        <Route path='/posts/:postId' element={<SinglePostPage />} />
 
         {!isLoggedIn && <Route path='/login' element={<LoginPage />} />}
         <Route path='*' element={<NotFound />} />
