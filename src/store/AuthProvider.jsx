@@ -3,30 +3,38 @@ import { createContext, useContext, useState } from 'react';
 export const AuthContext = createContext({
   email: '',
   token: '',
-  isUserLoggedIn: false,
+  isLoggedIn: false,
   // eslint-disable-next-line no-unused-vars
-  login(email) {},
+  login(gotEmail, gotToken) {},
   logout() {},
 });
+
 AuthContext.displayName = 'Auth';
 
 export default function AuthProvider(props) {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
 
-  const isUserLoggedIn = !!token;
+  const isLoggedIn = !!token;
 
-  function login() {}
+  function login(gotEmail, gotToken) {
+    setEmail(gotEmail);
+    setToken(gotToken);
+  }
 
-  function logout() {}
+  function logout() {
+    setEmail('');
+    setToken('');
+  }
 
   const ctx = {
     token: token,
     email: email,
     login: login,
     logout: logout,
-    isUserLoggedIn: isUserLoggedIn,
+    isLoggedIn: isLoggedIn,
   };
+
   return (
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>
   );
@@ -35,8 +43,7 @@ export default function AuthProvider(props) {
 // custom hook
 // turi prasideti zodeliu 'use'
 // tiesiog funkcija kuri gali naudoti hooks
-// daznai grazina reiksme
-
+// daznai grazina reikme
 export function useAuth() {
   return useContext(AuthContext);
 }

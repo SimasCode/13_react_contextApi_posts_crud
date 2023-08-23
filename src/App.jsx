@@ -5,8 +5,12 @@ import HomePage from './pages/HomePage';
 import PostsPage from './pages/posts/PostsPage';
 import Header from './components/layout/Header';
 import { useAuth } from './store/AuthProvider';
+import LoginPage from './pages/auth/LoginPage';
+import NotFound from './pages/NotFound';
+import SinglePostPage from './pages/posts/SinglePostPage';
 
 export default function App() {
+  const { isLoggedIn } = useAuth();
   const ctx = useAuth();
   console.log('ctx ===', ctx);
   return (
@@ -14,7 +18,12 @@ export default function App() {
       <Header />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/posts' element={<PostsPage />} />
+        {isLoggedIn && <Route path='/posts' element={<PostsPage />} />}
+        {/* vietoje 5 turi buti dinaminis posto id elementas */}
+        <Route path='/posts/5' element={<SinglePostPage />} />
+
+        {!isLoggedIn && <Route path='/login' element={<LoginPage />} />}
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );
