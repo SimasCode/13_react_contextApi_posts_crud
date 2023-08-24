@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Container from '../../components/UI/container/Container';
+import SinglePostLink from '../../components/posts/SinglePostLink';
 
 export default function PostsPage() {
   const [postsArr, setPostsArr] = useState([]);
@@ -23,7 +25,7 @@ export default function PostsPage() {
   }, []);
 
   return (
-    <div className='container'>
+    <Container>
       <h1>Posts Page</h1>
       <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo ipsam
@@ -31,12 +33,14 @@ export default function PostsPage() {
       </p>
       <ul>
         {postsArr.map((pObj) => (
-          <li key={pObj.id}>
-            {/* vietoje 5 paduoti posto id */}
-            <Link to={'/posts/5'}>{pObj.title}</Link>
-          </li>
+          <SinglePostLink
+            key={pObj.id}
+            id={pObj.id}
+            title={pObj.title}
+            author={pObj.author}
+          />
         ))}
       </ul>
-    </div>
+    </Container>
   );
 }
